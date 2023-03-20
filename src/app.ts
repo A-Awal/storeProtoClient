@@ -23,13 +23,6 @@ async function main()
   dataSources: () => ({
       productAPI: new ProductAPI(),
   }),
-  introspection: true,
-  plugins: [
-    false
-      ? ApolloServerPluginLandingPageDisabled()
-      : ApolloServerPluginLandingPageGraphQLPlayground(),
-  ],
-
   });
 
   const app = express();

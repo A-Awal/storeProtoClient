@@ -1,4 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+import { TemplateInput } from "../controllers/graphqlTypes/templateInput";
 
 class ProductAPI extends RESTDataSource {
   constructor() {
@@ -11,8 +12,8 @@ class ProductAPI extends RESTDataSource {
     return this.get('product');
   }
 
-  getAuthor(authorId) {
-    return this.get(`author/${authorId}`);
+  AddTemplate(templateInput:TemplateInput) {
+    return this.post(`TemplateDefault`, templateInput);
   }
 
   getTrack(trackId) {
