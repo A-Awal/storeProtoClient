@@ -1,3 +1,4 @@
+import { PageInput } from "../controllers/graphqlTypes/page/pageInput";
 import { ProductInput } from "../controllers/graphqlTypes/product/productInput";
 import { StoreInput } from "../controllers/graphqlTypes/store/storeInput";
 import { TemplateInput } from "../controllers/graphqlTypes/template/templateInput";
@@ -8,14 +9,15 @@ class ProductAPI extends RESTDataSource {
   constructor() {
     super();
     // the Catstronauts catalog is hosted on this server
-    this.baseURL = 'https://storeproto.azurewebsites.net/api';
+    // this.baseURL = 'https://storeproto.azurewebsites.net/api';
+    this.baseURL = 'http://localhost:5273/api';
   }
 
-  willSendRequest(request) {
+  willSendRequest(request:any) {
     request.headers.set('Content-Type', 'application/json');
   }
 
-  getProducts(productName) {
+  getProducts(productName:string) {
     return this.get(`Product?productName=${productName}`);
   }
 
@@ -38,6 +40,10 @@ class ProductAPI extends RESTDataSource {
 
   addStore(newStore:StoreInput) {
     return this.post(`Store/Create-A-New-Store`, {...newStore});
+  }
+
+  addPage(newPage:PageInput) {
+    return this.post(`Page`, {...newPage});
   }
 }
 
