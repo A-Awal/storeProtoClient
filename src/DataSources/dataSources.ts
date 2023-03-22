@@ -1,5 +1,6 @@
+import { TemplateInput } from "../controllers/graphqlTypes/template/templateInput";
+
 const { RESTDataSource } = require('apollo-datasource-rest');
-import { TemplateInput } from "../controllers/graphqlTypes/templateInput";
 
 class ProductAPI extends RESTDataSource {
   constructor() {
@@ -8,16 +9,21 @@ class ProductAPI extends RESTDataSource {
     this.baseURL = 'https://storeproto.azurewebsites.net/api';
   }
 
+  willSendRequest(request) {
+    request.headers.set('Content-Type', 'application/json');
+  }
+
   getProducts() {
     return this.get('product');
   }
 
-  AddTemplate(templateInput:TemplateInput) {
-    return this.post(`TemplateDefault`, templateInput);
+  addTemplate(templateInput:TemplateInput) {
+    console.log(templateInput);
+    return this.post(`Template`, {...templateInput});
   }
 
-  getTrack(trackId) {
-    return this.get(`track/${trackId}`);
+  getTemplate(CategoryName:string) {
+    return this.get(`Template?CateGoryName=${CategoryName}`);
   }
 
   getTrackModules(trackId) {

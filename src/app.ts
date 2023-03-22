@@ -30,9 +30,9 @@ async function main()
   await apolloServer.start();
 
   app.use((req:Request, res:Response, next:NextFunction) => {
-    console.log("Hello!!!!!!");
+    // console.log("Hello!!!!!!");
     next();
-    console.log("Got it!!!!");
+    // console.log("Got it!!!!");
   })
   apolloServer.applyMiddleware({app});
 
