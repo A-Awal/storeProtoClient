@@ -1,3 +1,5 @@
+import { ProductInput } from "../controllers/graphqlTypes/product/productInput";
+import { StoreInput } from "../controllers/graphqlTypes/store/storeInput";
 import { TemplateInput } from "../controllers/graphqlTypes/template/templateInput";
 
 const { RESTDataSource } = require('apollo-datasource-rest');
@@ -13,8 +15,8 @@ class ProductAPI extends RESTDataSource {
     request.headers.set('Content-Type', 'application/json');
   }
 
-  getProducts() {
-    return this.get('product');
+  getProducts(productName) {
+    return this.get(`Product?productName=${productName}`);
   }
 
   addTemplate(templateInput:TemplateInput) {
@@ -26,16 +28,16 @@ class ProductAPI extends RESTDataSource {
     return this.get(`Template?CateGoryName=${CategoryName}`);
   }
 
-  getTrackModules(trackId) {
-    return this.get(`track/${trackId}/modules`);
+  addProduct(newProduct:ProductInput) {
+    return this.post(`Product/create`, {...newProduct});
   }
 
-  getModule(moduleId) {
-    return this.get(`module/${moduleId}`);
+  getQuantity(productId:string) {
+    return this.get(`Product/Quantity?ProductId=${productId}`);
   }
 
-  incrementTrackViews(trackId) {
-    return this.patch(`track/${trackId}/numberOfViews`);
+  addStore(newStore:StoreInput) {
+    return this.post(`Store/Create-A-New-Store`, {...newStore});
   }
 }
 
